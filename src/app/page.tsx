@@ -4,7 +4,7 @@ export default function Home() {
 
 
       <p className="text-2xl">
-        This is my template for creating a Next.js site and deploying it on Fleek.
+        This is my 2nd template for creating a Next.js site and deploying it on Fleek.
       </p>
 
       <ul
