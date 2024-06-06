@@ -1,70 +1,32 @@
-export default function Home() {
+
+
+export default function Page() {
   return (
-    <main className="w-3/4 flex flex-col items-center gap-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
-
-
-      <p className="text-2xl">
-        This is my 2nd template for creating a Next.js site and deploying it on Fleek.
-      </p>
-
-      <ul
-        className='grid grid-cols-2 gap-[15px]'
-        role='list'
-      >
-        <Card
-          icon='/fleekMark.svg'
-          width={19}
-          href="https://docs.fleek.xyz/"
-          title="Fleek Documentation"
-          body="Learn about Fleek & the available services by cheking our official docs."
-        />
-        <Card
-          icon='/nextMark.svg'
-          width={31}
-          href="https://nextjs.org/docs"
-          title="Next.js Documentation"
-          body="Learn about how Next.js works and explore the official API docs."
-        />
-        <Card
-          icon='/fleekMark.svg'
-          width={19}
-          href="https://blog.fleek.xyz/"
-          title="Fleek Blog"
-          body="Checkout our Blog for more information about Fleek."
-        />
-        <Card
-          icon='/nextMark.svg'
-          width={31}
-          href="https://astro.build/integrations/"
-          title="Next.js Blog"
-          body="Check the latest news about Next.js."
-        />
-      </ul>
-    </main>
-  )
-}
-
-type CardProps = {
-  title: string;
-  body: string;
-  href: string;
-  icon: string;
-  width: number;
-}
-
-const Card = ({ title, width, body, href, icon }: CardProps) => {
-  return (
-    <li className="list-none">
-      <a href={href} className="h-full flex flex-col no-underline rounded-3xl border-[0.85px] border-[#313538] gap-[15px] px-8 py-5">
-        <div className="flex gap-[15px] items-start ">
-          <h2 className="text-xl font-bold leading-8 m-0 text-white">
-            {title}
-          </h2>
+    <main className="flex min-h-screen flex-col p-6">
+      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
+      <img src="/favicon.png" alt="Example Image" className="rounded-lg" />
+        {/* <AcmeLogo /> */}
+      </div>
+      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
+        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
+          <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
+            <strong>Welcome to Acme.</strong> This is the example for the{' '}
+            <a href="https://nextjs.org/learn/" className="text-blue-500">
+              Next.js Learn Course
+            </a>
+            , brought to you by Vercel.
+          </p>
+          {/*<Link
+            href="/login"
+            className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+          >
+            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
+          </Link>*/}
         </div>
-        <p className="text-md leading-6 text-[#9ca3af]">
-          {body}
-        </p>
-      </a>
-    </li>
-  )
+        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
+          {/* Add Hero Images Here */}
+        </div>
+      </div>
+    </main>
+  );
 }
