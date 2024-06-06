@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from "next/link";
 import Image from "next/image";
 
@@ -18,7 +19,7 @@ export default function Page() {
 
 
           <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
-            <strong>Welcome to Acme 7.</strong> This is the example for the{' '}
+            <strong>Welcome to Acme 8.</strong> This is the example for the{' '}
             <a href="https://nextjs.org/learn/" className="text-blue-500">
               Next.js Learn Course
             </a>
@@ -28,7 +29,7 @@ export default function Page() {
             href="/login"
             className="flex items-center gap-6 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
-            <span>Log in</span> {/*<ArrowRightIcon className="w-5 md:w-6" />*/}
+            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>
         </div>
 
