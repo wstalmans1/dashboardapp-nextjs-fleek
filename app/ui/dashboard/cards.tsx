@@ -1,17 +1,17 @@
 import { BanknotesIcon, ClockIcon, UserGroupIcon, InboxIcon, CubeIcon } from '@heroicons/react/24/outline';
-  import { Inter } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-  const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
-  const iconMap = {
-    collected: BanknotesIcon,
-    customers: UserGroupIcon,
-    pending: ClockIcon,
-    invoices: InboxIcon,
-    contract: CubeIcon,
-  };
+const iconMap = {
+  collected: BanknotesIcon,
+  customers: UserGroupIcon,
+  pending: ClockIcon,
+  invoices: InboxIcon,
+  contract: CubeIcon,
+};
   
-  export default async function CardWrapper() {
+  export default function CardWrapper() {
     return (
       <>
         {/* NOTE: comment in this code when you get to this point in the course */}
@@ -32,25 +32,34 @@ import { BanknotesIcon, ClockIcon, UserGroupIcon, InboxIcon, CubeIcon } from '@h
     title,
     value,
     type,
+    children,
   }: {
     title: string;
-    value: number | string;
+    value?: number | string;
     type: 'invoices' | 'customers' | 'pending' | 'collected' | 'contract';
+    children?: React.ReactNode;
   }) {
     const Icon = iconMap[type];
   
     return (
-      <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
+      <div className="group relative rounded-xl bg-gray-50 p-2 shadow-sm">
         <div className="flex p-4">
           {Icon ? <Icon className="h-5 w-5 text-gray-700" /> : null}
-          <h3 className="ml-2 text-sm font-medium">{title}</h3>
+          <h3 className={`ml-2 text-sm font-medium ${inter.className}`}>{title}</h3>
         </div>
-        <p
-          className={`${inter.className}
-            truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
-        >
-          {value}
-        </p>
+        {value !== undefined ? (  
+          <p className={`truncate rounded-xl bg-white px-4 py-8 text-center text-sm font-medium ${inter.className}`} >
+            {value}
+          </p>
+        ) : null}
+        {children && (
+          <div className={`rounded-xl bg-white px-4 py-8 text-center text-sm font-medium ${inter.className}`}>
+            {children}
+          </div>
+        )}
+        <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-64 rounded-md bg-black p-2 text-xs text-white shadow-lg group-hover:block">
+          Contribute 0.01 ETH to the partysplit contract
+        </div>
       </div>
     );
   }
