@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 
 import { Card } from '../ui/dashboard/cards';
 //import RevenueChart from '@/app/ui/dashboard/revenue-chart';
