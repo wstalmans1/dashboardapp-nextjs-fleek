@@ -1,4 +1,4 @@
-import { BanknotesIcon, ClockIcon, UserGroupIcon, InboxIcon, CubeIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon, ClockIcon, UserGroupIcon, InboxIcon, CubeIcon, ArrowDownOnSquareIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -9,6 +9,8 @@ const iconMap = {
   pending: ClockIcon,
   invoices: InboxIcon,
   contract: CubeIcon,
+  contribution: ArrowDownOnSquareIcon,
+  payment: ArrowTopRightOnSquareIcon,
 };
   
   export default function CardWrapper() {
@@ -37,7 +39,7 @@ const iconMap = {
   }: {
     title: string;
     value?: number | string;
-    type: 'invoices' | 'customers' | 'pending' | 'collected' | 'contract';
+    type: 'invoices' | 'customers' | 'pending' | 'collected' | 'contract' | 'contribution' | 'payment';
     children?: React.ReactNode;
     tooltipText?: string;
   }) {
@@ -50,12 +52,12 @@ const iconMap = {
           <h3 className={`ml-2 text-sm font-medium ${inter.className}`}>{title}</h3>
         </div>
         {value !== undefined ? (  
-          <p className={`truncate rounded-xl bg-white px-4 py-8 text-center text-sm font-medium ${inter.className}`} >
+          <p className={`break-words whitespace-normal rounded-xl bg-white px-4 py-8 text-center text-xs ${inter.className}`} >
             {value}
           </p>
         ) : null}
         {children && (
-          <div className={`rounded-xl bg-white px-4 py-8 text-center text-sm font-medium ${inter.className}`}>
+          <div className={`break-words whitespace-normal rounded-xl bg-white px-4 py-8 text-center text-xs ${inter.className}`}>
             {children}
           </div>
         )}
