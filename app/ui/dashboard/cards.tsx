@@ -33,11 +33,13 @@ const iconMap = {
     value,
     type,
     children,
+    tooltipText,
   }: {
     title: string;
     value?: number | string;
     type: 'invoices' | 'customers' | 'pending' | 'collected' | 'contract';
     children?: React.ReactNode;
+    tooltipText?: string;
   }) {
     const Icon = iconMap[type];
   
@@ -57,9 +59,13 @@ const iconMap = {
             {children}
           </div>
         )}
-        <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-64 rounded-md bg-black p-2 text-xs text-white shadow-lg group-hover:block">
-          Contribute 0.01 ETH to the partysplit contract
-        </div>
+              
+        {/* Tooltip */}
+        {tooltipText && (
+          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden w-64 rounded-md bg-black p-2 text-xs text-white shadow-lg group-hover:block">
+            {tooltipText}
+          </div>
+        )}
       </div>
     );
   }
