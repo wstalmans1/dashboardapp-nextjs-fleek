@@ -27,6 +27,25 @@ export default function Page() {
         {/* <RevenueChart revenue={revenue}  /> */}
         {/* <LatestInvoices latestInvoices={latestInvoices} /> */}
       </div>
+      <div className="mt-6">
+        {loading && <p>Waiting for your transaction to be confirmed...</p>}
+        <button onClick={handleRSVP}>Click to send 0.01 ETH to the partysplit contract</button>
+        <p>Transaction Hash: {transactionHash} </p>
+        <div>
+          <h3>Pay Bill</h3>
+          <input type="text" placeholder="Venue Address" id="venueAddress" />
+          <input type="text" placeholder="Bill Amount" id="billAmount" />
+          <button
+            onClick={() => {
+              const venueAddress = (document.getElementById('venueAddress') as HTMLInputElement).value;
+              const billAmount = (document.getElementById('billAmount') as HTMLInputElement).value;
+              handlePayBill(venueAddress, billAmount);
+            }}
+          >
+            Pay Bill
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
