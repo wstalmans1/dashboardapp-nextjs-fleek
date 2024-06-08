@@ -1,9 +1,9 @@
 // pages/index.tsx
 "use client";
 
-import { Card } from '../../ui/dashboard/cards';
+import { Card } from '../ui/dashboard/cards';
 import { Inter } from 'next/font/google';
-import { useBlockchain } from '../../blockchain/useblockchainhook';
+import { useBlockchain } from '../blockchain/useblockchainhook';
 
 const inter = Inter({ subsets: ['latin'] });
 
