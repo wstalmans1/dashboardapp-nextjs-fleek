@@ -17,11 +17,11 @@ export async function getContract(provider: ethers.BrowserProvider): Promise<eth
   return new ethers.Contract(contractAddress, ContractABI, await signer);
 }
 
-export async function getTotalDeposits() {
+export async function getTotalDeposits(): Promise<bigint> {
     const provider = await getWeb3Provider();
     const contract = await getContract(provider);
     const totalDeposits = await contract.totalDeposits(); // call the totalDeposits function
-    return ethers.parseUnits(totalDeposits, "ether"); // convert BigNumber to string in ether format
+    return BigInt(totalDeposits); 
   }
 
 export async function rsvp() {

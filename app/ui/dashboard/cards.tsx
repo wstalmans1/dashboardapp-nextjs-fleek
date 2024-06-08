@@ -1,9 +1,4 @@
-import {
-    BanknotesIcon,
-    ClockIcon,
-    UserGroupIcon,
-    InboxIcon,
-  } from '@heroicons/react/24/outline';
+import { BanknotesIcon, ClockIcon, UserGroupIcon, InboxIcon, CubeIcon } from '@heroicons/react/24/outline';
   import { Inter } from 'next/font/google';
 
   const inter = Inter({ subsets: ['latin'] });
@@ -13,6 +8,7 @@ import {
     customers: UserGroupIcon,
     pending: ClockIcon,
     invoices: InboxIcon,
+    contract: CubeIcon,
   };
   
   export default async function CardWrapper() {
@@ -39,7 +35,7 @@ import {
   }: {
     title: string;
     value: number | string;
-    type: 'invoices' | 'customers' | 'pending' | 'collected';
+    type: 'invoices' | 'customers' | 'pending' | 'collected' | 'contract';
   }) {
     const Icon = iconMap[type];
   
