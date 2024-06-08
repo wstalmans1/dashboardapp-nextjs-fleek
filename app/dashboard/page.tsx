@@ -16,15 +16,14 @@ export default function Page() {
         Dashboard
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card title="Contract" value={contractAddress} type="contract" tooltipText="This is the contract address" />
-        <Card title="Balance" value={balance !== null ? balance : 'Loading...'} type="collected" tooltipText="This is the balance in the contract" />
+        <Card title="Contract" value={contractAddress} type="contract" tooltipText="This is the partysplit contract address" />
+        <Card title="Balance" value={balance !== null ? balance : 'Connect a wallet for the balance to load...'} type="collected" tooltipText="The partysplit contract holds currently this as balance" />
         {/* <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
         {/* <Card title="Total Customers" value={numberOfCustomers} type="customers" /> */}
       </div>
       <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card title="Contribute" type="pending" tooltipText="This is the balance in the contract">
+        <Card title="Contribute" type="pending" tooltipText="Participation in the splitparty contract requires a contribution of 0.01 ETH. Click on the button to make your contribution">
           <div className="flex flex-col items-center">
-            <p className="mt-2">Contribute 0.01 ETH to the partysplit contract</p>
             <button onClick={handleRSVP} className="mt-2 p-2 bg-blue-500 text-white rounded">Click to Pay</button>
             {loading && <p>Waiting for your transaction to be confirmed...</p>}
             <p className="mt-2 px-4 text-xs break-words max-w-full px-4">Transaction Hash: {transactionHash}</p>
