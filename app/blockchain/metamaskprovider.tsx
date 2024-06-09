@@ -1,16 +1,18 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { ethers } from 'ethers';
 
 
 declare global { interface Window { ethereum: any }}
-interface MetaMaskContextProps { walletAddress: string | null; connectWallet: () => void}
+interface MetaMaskContextProps { walletAddress: string | null; connectWallet: () => void; provider: ethers.BrowserProvider | null }
 const MetaMaskContext = createContext<MetaMaskContextProps | undefined>(undefined);
 
 
 export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
   
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
 
   // ****** Get an account from MetaMask ******
   const connectWallet = async () => {
@@ -19,6 +21,8 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
       try {
         const accounts: string[] = await window.ethereum.request({ method: "eth_requestAccounts" });
         setWalletAddress(accounts[0]);
+        const providerInstance = new ethers.BrowserProvider(window.ethereum);
+        setProvider(providerInstance);
       } catch (error) {console.error("Error connecting to MetaMask:", error)}
     } else {console.error("MetaMask not detected")}
   };
@@ -36,7 +40,7 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
   return (
-    <MetaMaskContext.Provider value={{ walletAddress, connectWallet }}>
+    <MetaMaskContext.Provider value={{ walletAddress, connectWallet, provider }}>
       {children}
     </MetaMaskContext.Provider>
   );

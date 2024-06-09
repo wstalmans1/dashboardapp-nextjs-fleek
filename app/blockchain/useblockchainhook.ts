@@ -1,15 +1,16 @@
 // hooks/useBlockchain.ts
 import { useState, useEffect } from 'react';
 import { getTotalDeposits, rsvp, payBill, contractAddress } from './contractfunctionspartysplit';
+import { ethers } from 'ethers';
 
-export function useBlockchain() {
+export function useBlockchain(provider: ethers.BrowserProvider, signer: ethers.Signer) {
     const [balance, setBalance] = useState<string | null>(null);
     const [transactionHash, setTransactionHash] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
   
     async function fetchBalance() {
       try {
-        const balanceValue = await getTotalDeposits();
+        const balanceValue = await getTotalDeposits(provider, signer);
         setBalance(balanceValue.toString()); // Convert bigint to string
       } catch (error) {
         console.error("Error fetching balance:", error);
@@ -20,7 +21,7 @@ export function useBlockchain() {
       setTransactionHash(null);
       setLoading(true);
       try {
-        const txHash = await rsvp();
+        const txHash = await rsvp(provider, signer);
         setTransactionHash(txHash);
         await fetchBalance();
       } catch (error) {
@@ -38,7 +39,7 @@ export function useBlockchain() {
       setTransactionHash(null);
       setLoading(true);
       try {
-        const txHash = await payBill(venueAddress, billAmount);
+        const txHash = await payBill(provider, signer, venueAddress, billAmount);
         setTransactionHash(txHash);
         await fetchBalance();
       } catch (error) {

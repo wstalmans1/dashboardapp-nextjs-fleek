@@ -1,26 +1,52 @@
-// pages/index.tsx
+
 "use client";
 
+import { useState, useEffect } from 'react';
 import { Card } from '../ui/dashboard/cards';
 import { Inter } from 'next/font/google';
 import { useBlockchain } from '../blockchain/useblockchainhook';
+import { useMetaMask } from '../blockchain/metamaskprovider';
+import { ethers } from 'ethers';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Page() {
-  const { balance, transactionHash, loading, handleRSVP, handlePayBill, contractAddress } = useBlockchain();
+  const { walletAddress, connectWallet, provider } = useMetaMask();
+  const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
+    
+  useEffect(() => {
+    if (provider) {
+      provider.getSigner().then(setSigner).catch(console.error);
+    }
+  }, [provider]);
+
+  // Only call useBlockchain when provider and signer are available
+  const blockchainData = provider && signer
+    ? useBlockchain(provider, signer)
+    : { balance: null, transactionHash: null, loading: false, handleRSVP: () => {}, handlePayBill: () => {}, contractAddress: '' };
+
+  const { balance, transactionHash, loading, handleRSVP, handlePayBill, contractAddress } = blockchainData;
 
   return (
     <main>
       <h1 className={`${inter.className} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
+
+      {!walletAddress ? (
+        <button onClick={connectWallet} className="mb-4 p-2 bg-blue-500 text-white rounded">Connect Wallet</button>
+      ) : (
+        <p>Connected as: {walletAddress}</p>
+      )}
+
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card title="Contract" value={contractAddress} type="contract" tooltipText="This is the partysplit contract address" />
         <Card title="Balance" value={balance !== null ? balance : 'Connect a wallet for the balance to load...'} type="collected" tooltipText="The partysplit contract holds currently this as balance" />
         {/* <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
         {/* <Card title="Total Customers" value={numberOfCustomers} type="customers" /> */}
       </div>
+
       <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card title="Contribute" type="contribution" tooltipText="Participation in the splitparty contract requires a contribution of 0.01 ETH. Click on the button to make your contribution">
           <div className="flex flex-col items-center">
@@ -29,6 +55,7 @@ export default function Page() {
             <p className="mt-2 px-4 text-xs break-words max-w-full px-4">Transaction Hash: {transactionHash}</p>
           </div>
         </Card>
+
         <Card title="Pay Bill" type="payment" tooltipText="After clicking 'Pay Bill', the balance of the contract wil be used to pay the 'Bill Amount' to the 'Venue Address' and the remainder of the balance will be equally paid back to the contributors" >
           <div className="flex flex-col items-center">
             <input className="mt-2 p-2 border rounded" type="text" placeholder="Venue Address" id="venueAddress" />
@@ -45,6 +72,7 @@ export default function Page() {
             </button>
           </div>
         </Card>
+
       </div>
     </main>
   );
