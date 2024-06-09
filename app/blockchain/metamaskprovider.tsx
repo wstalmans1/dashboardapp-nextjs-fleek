@@ -1,11 +1,10 @@
-// context/MetaMaskProvider.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+
 declare global { interface Window { ethereum: any }}
-
 interface MetaMaskContextProps { walletAddress: string | null; connectWallet: () => void}
-
 const MetaMaskContext = createContext<MetaMaskContextProps | undefined>(undefined);
+
 
 export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
   
@@ -40,6 +39,7 @@ export const MetaMaskProvider = ({ children }: { children: ReactNode }) => {
     </MetaMaskContext.Provider>
   );
 };
+
 
 export const useMetaMask = () => {
   const context = useContext(MetaMaskContext);
